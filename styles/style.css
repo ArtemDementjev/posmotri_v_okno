@@ -10,8 +10,8 @@ html {
 
 .visually-hidden {
   position: absolute; /* элемент вырывают из потока */
-  width: 1px; /* делают элемент очень маленьким, но таким, чтобы не пропал совсем */
-  height: 1px;
+  inline-size: 1px; /* делают элемент очень маленьким, но таким, чтобы не пропал совсем */
+  block-size: 1px;
   margin: -1px; /* элемент убирают из поля зрения, сдвинув на размер самого себя */
   padding: 0; /* обнуляют отступы, они есть у некоторых элементов по умолчанию */
   border: 0; /* убирают границу, она тоже может быть у каких-то элементов */
@@ -67,26 +67,28 @@ ol {
   grid-area: 1 / 2 / 2 / 2;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 100%;
+  inline-size: 100%;
+  block-size: 100%;
 }
 
 .result__video-container {
   position: relative;
-  width: 100%;
-  height: 386px;
-  overflow: hidden;
+  inline-size: 100%;
+  block-size: 386px;
 }
 
 .result__video {
-  width: 100%;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .search-form {
   display: flex;
   justify-content: space-between;
   gap: 40px;
-  padding-top: 16px;
+  padding-block-start: 16px;
 }
 
 .search-form__fieldset {
@@ -97,14 +99,14 @@ ol {
   font-weight: 400;
   font-size: 18px;
   line-height: 1.2em;
-  padding-bottom: 5px;
+  padding-block-end: 5px;
 }
 
 .search-form__label {
   display: flex;
   align-items: center;
   gap: 5px;
-  width: fit-content;
+  inline-size: fit-content;
   cursor: pointer;
 }
 
@@ -113,7 +115,7 @@ ol {
   outline-offset: 1px;
 }
 
-.search-form__label:hover {
+.search-form__label:has(.search-form__checkbox):hover {
   text-decoration: underline;
 }
 
@@ -126,8 +128,8 @@ ol {
 
 .search-form__pseudo-checkbox {
   display: flex;
-  width: 19px;
-  height: 19px;
+  inline-size: 19px;
+  block-size: 19px;
   border: 1px solid #fff;
   justify-content: center;
   align-items: center;
@@ -136,23 +138,27 @@ ol {
 .search-form__checkbox:checked + .search-form__pseudo-checkbox::before {
   content: '';
   display: block;
-  width: 15px;
-  height: 15px;
+  inline-size: 15px;
+  block-size: 15px;
   background-color: #fff;
 }
 
 .search-form__textfield {
   background-color: transparent;
   border: none;
-  border-top: 1px solid #fff;
-  border-bottom: 1px solid #fff;
+  border-top: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
   appearance: none ;
-  font-family: 'Fira Sans Condensed';
-  font-size: 18px;
+  font-family: 'Fira Sans Condensed', sans-serif;
+  font-size: inherit;
   font-weight: 400;
   line-height: 1.2em;
+  color: inherit;
+  inline-size: 225px;
+}
+
+.search-form__textfield::placeholder {
   color: rgba(255, 255, 255, 0.7);
-  width: 225px;
 }
 
 .search-form__textfield:focus {
@@ -164,11 +170,11 @@ ol {
 }
 
 .button {
+  font-family: 'Fira Sans Condensed', sans-serif;
   display: block;
   background-color: transparent;
   color: #fff;
   border: 1px solid #fff;
-  align-self: flex-end;
   font-size: 18px;
   font-weight: 700;
   font-style: normal;
@@ -194,18 +200,20 @@ ol {
 }
 
 .search-form__submit-button {
-  width: 194px;
-  height: 34px;
+  inline-size: 194px;
+  block-size: 34px;
+  align-self: flex-end;
 }
 
 .more-button {
-  width: 100%;
-  height: 34px;
+  inline-size: 99%;
+  block-size: 34px;
+  margin: 0 auto 2px;
 }
 
 .title {
-  padding-bottom: 26px;
-  font-family: Oswald;
+  padding-block-end: 26px;
+  font-family: Oswald, sans-serif;
   font-size: 75px;
   line-height: 70.5px;
   text-transform: uppercase;
@@ -216,7 +224,7 @@ ol {
 }
 
 .content__list {
-  width: 100%;
+  inline-size: 100%;
   overflow-x: hidden;
   position: relative;
   display: flex;
@@ -225,11 +233,11 @@ ol {
 }
 
 .content__list::-webkit-scrollbar {
-  width: 0;
+  inline-size: 0;
 }
 
 .content__list-item {
-  max-width: 100%;
+  max-inline-size: 100%;
 }
 
 .content__card-link {
@@ -263,31 +271,30 @@ ol {
 }
 
 .content__video-card-title {
-  font-family: Oswald;
+  font-family: Oswald, sans-serif;
   font-weight: 700;
   font-size: 30px;
   line-height: 1em;
   text-transform: uppercase;
+  padding-block-end: 6px;
 }
 
 .content__video-card{
   display: flex;
-  justify-content: start;
+  justify-content: space-between;
   align-content: start;
   overflow: hidden;
 }
 
 .content__video-card-thumbnail{
-  width: 194px;
-  height: 103px;
-}
-
-.content__video-card-description-container {
-  width: 100%;
+  inline-size: 194px;
+  block-size: 103px;
+  object-fit: cover;
+  object-position: center;
 }
 
 .content__video-card-description {
-  font-family: 'Fira Sans Condensed';
+  font-family: 'Fira Sans Condensed', sans-serif;
   font-size: 18px;
   line-height: 0.9em;
 }
